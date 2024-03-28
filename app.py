@@ -1,9 +1,9 @@
-import os
-import numpy as np
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from werkzeug.utils import secure_filename
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
+import os 
+import numpy as np
 
 app = Flask(__name__)
 
@@ -43,9 +43,10 @@ def predict():
 
         # Make prediction
         prediction = model.predict(img)
-        result = 'Tumor' if prediction > 0.5 else 'Normal'
+        class_label = 'Tumor' if prediction > 0.5 else 'Normal'
+        accuracy = float(prediction) * 100 if class_label == 'Tumor' else float(1 - prediction) * 100
 
-        return render_template('result.html', result=result)
+        return render_template('result.html', result={'class_label': class_label, 'accuracy': accuracy})
 
     else:
         return redirect(request.url)
