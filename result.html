@@ -1,10 +1,9 @@
-<!-- Updated result.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Result</title>
+    <title>Result - FAAM</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,14 +48,16 @@
 </head>
 <body>
     <div class="container">
-        <h1>Result</h1>
-        {% if result == 'Normal' %}
+        <h1>Result - FAAM</h1>
+        {% if result.class_label == 'Normal' %}
         <div class="result-box-normal">
-            <p>The predicted class is: {{ result }}</p>
+            <p>The predicted class is: {{ result.class_label }}</p>
+            <p>The accuracy of the prediction is: {{ "%.2f" % result.accuracy }}%</p>
         </div>
         {% else %}
         <div class="result-box-tumor">
-            <p>The predicted class is: {{ result }}</p>
+            <p>The predicted class is: {{ result.class_label }}</p>
+            <p>The accuracy of the prediction is: {{ "%.2f" % result.accuracy }}%</p>
         </div>
         {% endif %}
     </div>
